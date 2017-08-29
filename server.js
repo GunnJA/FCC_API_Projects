@@ -9,11 +9,9 @@ var url = require('url');
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
-function parseTime(time) {
+function parseTime(urlDate) {
     return {  
-        'unix': time.getTime(time),
-        'natural': time.g
-        second: time.getSeconds()
+        'unix': Date.now(urlDate)
     }
 }
 
