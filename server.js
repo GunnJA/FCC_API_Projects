@@ -9,7 +9,7 @@ var url = require('url');
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
-function parseTime(urlDate) {
+function parseDate(urlDate) {
     return {  
         'unix': Date.now(urlDate)
     }
@@ -25,9 +25,8 @@ app.get("/", function (request, response) {
 
 app.get("/*", function (request, response) {
   let urlStr = request.url;
-  let timeStr = new Date(urlStr);\
-  
-  response.send(dreams);
+  let timeStr = new Date(urlStr);
+  response.send(parseDate(timeStr));
 });
 
 // could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
