@@ -25,7 +25,7 @@ app.get("/", function (request, response) {
 });
 
 app.get("/*", function (request, response) {
-  let urlStr = request.url;
+  let urlStr = Date.parse(request.url);
   let timeStr = new Date(urlStr);
   response.send(parseDate(timeStr));
 });
