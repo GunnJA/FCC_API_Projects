@@ -9,6 +9,7 @@ let paramDate;
 let unix = null;
 let natural = null;
 
+
 function parseDate(unix, natural) {
     return {  
         'unix': unix,
@@ -23,6 +24,7 @@ app.use(express.static('public'));
 app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
+
 
 app.get("/*", function (request, response, callback) {
   if (isNaN(request.params[0])) {
