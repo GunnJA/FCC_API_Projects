@@ -5,6 +5,7 @@
 var express = require('express');
 var app = express();
 var url = require('url');
+var paramDate;
 
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
@@ -26,16 +27,9 @@ app.get("/", function (request, response) {
 
 app.get("/*", function (request, response) {
   if (NaN(request.url)) {
-    let urlStr = Date.parse(request.url);
-    let timeStr = new Date(urlStr);
-    response.send(parseDate(timeStr));
-  } else if (try Date(request.url)) {
-    let urlStr = Date(request.url);
-    let timeStr = new Date(urlStr);
-    response.send(parseDate(timeStr));
+    try {paramDate = new Date.parse(request.url)}
+    catch (e) {throw (e)
   }
-  
-  
 });
 
 // could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
