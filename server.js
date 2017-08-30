@@ -11,7 +11,7 @@ var url = require('url');
 
 function parseDate(urlDate) {
     return {  
-        'unix': Date.now(urlDate),
+        'unix': Date.UTC(urlDate)/1000,
         'natural': urlDate.getMonth() + urlDate.getYear()
     }
 }
@@ -25,9 +25,17 @@ app.get("/", function (request, response) {
 });
 
 app.get("/*", function (request, response) {
-  let urlStr = Date.parse(request.url);
-  let timeStr = new Date(urlStr);
-  response.send(parseDate(timeStr));
+  if (NaN(request.url)) {
+    let urlStr = Date.parse(request.url);
+    let timeStr = new Date(urlStr);
+    response.send(parseDate(timeStr));
+  } else if (try Date(request.url)) {
+    let urlStr = Date(request.url);
+    let timeStr = new Date(urlStr);
+    response.send(parseDate(timeStr));
+  }
+  
+  
 });
 
 // could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
