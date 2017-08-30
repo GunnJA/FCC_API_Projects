@@ -10,10 +10,18 @@ var paramDate;
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
+function naturalDate(urlDate) {
+  if (!urlDate == null) {
+    return urlDate.getDate() + "-" +(urlDate.getMonth() + 1) +"-"+ urlDate.getFullYear();
+  } else {
+    return null;
+  }
+}
+
 function parseDate(urlDate) {
     return {  
-        'unix': Date.UTC(urlDate)/1000,
-        'natural': urlDate.getDate() + " " +(urlDate.getMonth() + 1) +" "+ urlDate.getFullYear(),
+        'unix': urlDate.getTime()/1000,
+        'natural': naturalDate(urlDate),
         'input' : urlDate
     }
 }
