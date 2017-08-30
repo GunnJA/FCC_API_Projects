@@ -12,15 +12,6 @@ let natural = null;
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
-function naturalDate(urlDate) {
-  if (!urlDate === null) {
-    console.log(!urlDate === null);
-    return urlDate.getDate() + "-" +(urlDate.getMonth() + 1) +"-"+ urlDate.getFullYear();
-  } else {
-  console.log(!urlDate === null);
-    return null;
-  }
-}
 
 function parseDate(unix, natural) {
     return {  
@@ -37,20 +28,31 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-app.get("/*", function (request, response) {
-  if (isNaN(request.params[0])) {
-    try {paramDate = new Date(request.params[0])}
-    catch (e) {throw (e)}
-  } else {
-    try {paramDate = new Date(parseInt(request.params[0])*1000)}
-    catch (e) {throw (e)}
-  }
-  if (paramDate) {
+function callback(paramDate) {
+  if (!paramDate === "Invalid Date") {
+    console.log(paramDate);
     unix = paramDate.getTime()/1000;
     natural = paramDate.getDate() + "-" +(paramDate.getMonth() + 1) +"-"+ paramDate.getFullYear();
-    response.send(parseDate(unix, natural));
+    return parseDate(unix, natural);
   } else {
-    response.send(request.params[0]);
+        console.log(paramDate);
+    return parseDate(null, null);
+  }
+}
+
+app.get("/*", function (request, response, callback) {
+  if (isNaN(request.params[0])) {
+    try {
+      paramDate = new Date(request.params[0])
+      response.send(callback(paramDate))
+    }
+    catch (e) {throw (e)}
+  } else {
+    try {
+      paramDate = new Date(parseInt(request.params[0])*1000)
+      response.send(callback(paramDate))
+    }
+    catch (e) {throw (e)}
   }
 });
 
