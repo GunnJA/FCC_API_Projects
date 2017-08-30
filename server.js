@@ -39,14 +39,14 @@ function callback(paramDate) {
 app.get("/*", function (request, response, callback) {
   if (isNaN(request.params[0])) {
     try {
-      paramDate = new Date(request.params[0])
-      response.send(callback(paramDate))
+      paramDate = new Date(request.params[0]);
+      response.send(callback(paramDate));
     }
     catch (e) {throw (e)}
   } else {
     try {
-      paramDate = new Date(parseInt(request.params[0])*1000)
-      response.send(callback(paramDate))
+      paramDate = new Date(parseInt(request.params[0])*1000);
+      response.send(callback(paramDate));
     }
     catch (e) {throw (e)}
   }
