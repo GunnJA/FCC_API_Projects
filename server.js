@@ -12,7 +12,7 @@ var url = require('url');
 function parseDate(urlDate) {
     return {  
         'unix': Date.now(urlDate),
-              'unix': Date.now(urlDate)
+        'natural': urlDate.getMonth() + urlDate.getYear()
     }
 }
 
