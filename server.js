@@ -26,9 +26,17 @@ app.get("/", function (request, response) {
 });
 
 app.get("/*", function (request, response) {
-  if (NaN(request.url)) {
-    try {paramDate = new Date.parse(request.url)}
-    catch (e) {throw (e)
+  if (isNaN(request.url)) {
+    try {paramDate = Date.parse(request.url)}
+    catch (e) {throw (e)}
+  } else {
+    try {paramDate = new Date(request.url)}
+    catch (e) {throw (e)}
+  }
+  if (paramDate) {
+    response.send(parseDate(paramDate));
+  } else {
+    response.send(request.path);
   }
 });
 
