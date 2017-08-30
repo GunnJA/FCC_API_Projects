@@ -5,7 +5,7 @@
 var express = require('express');
 var app = express();
 var url = require('url');
-var paramDate;
+let paramDate;
 let unix = null;
 let natural = null;
 
@@ -24,31 +24,20 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-function callback(paramDate) {
-  if (!paramDate === null) {
-    console.log('a',paramDate);
-    unix = paramDate.getTime()/1000;
-    natural = paramDate.getDate() + "-" +(paramDate.getMonth() + 1) +"-"+ paramDate.getFullYear();
-    return parseDate(unix, natural);
-  } else {
-        console.log('b',paramDate);
-    return parseDate(null, null);
-  }
-}
-
 app.get("/*", function (request, response, callback) {
   if (isNaN(request.params[0])) {
-    try {
       paramDate = new Date(request.params[0]);
-      response.send(callback(paramDate));
-    }
-    catch (e) {throw (e)}
   } else {
-    try {
       paramDate = new Date(parseInt(request.params[0])*1000);
-      response.send(callback(paramDate));
-    }
-    catch (e) {throw (e)}
+  }
+  if (!paramDate === "Invalid Date") {
+    console.log("dadsds",paramDate);
+    unix = paramDate.getTime()/1000;
+    natural = paramDate.getDate() + "-" +(paramDate.getMonth() + 1) +"-"+ paramDate.getFullYear();
+    response.send(parseDate(unix,natural));
+  } else {
+        console.log("dadsdsdfsdfss",paramDate);
+    response.send(parseDate(null,null));
   }
 });
 
