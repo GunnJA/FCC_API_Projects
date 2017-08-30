@@ -30,13 +30,11 @@ app.get("/*", function (request, response, callback) {
   } else {
       paramDate = new Date(parseInt(request.params[0])*1000);
   }
-  if (!paramDate === "Invalid Date") {
-    console.log("dadsds",paramDate);
+  if (!isNaN(paramDate.getDate())) {
     unix = paramDate.getTime()/1000;
     natural = paramDate.getDate() + "-" +(paramDate.getMonth() + 1) +"-"+ paramDate.getFullYear();
     response.send(parseDate(unix,natural));
   } else {
-        console.log("dadsdsdfsdfss",paramDate);
     response.send(parseDate(null,null));
   }
 });
