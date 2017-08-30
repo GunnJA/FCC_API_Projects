@@ -13,7 +13,8 @@ var paramDate;
 function parseDate(urlDate) {
     return {  
         'unix': Date.UTC(urlDate)/1000,
-        'natural': urlDate.getMonth() + urlDate.getYear()
+        'natural': urlDate.getDate() + " " +(urlDate.getMonth() + 1) +" "+ urlDate.getFullYear(),
+        'input' : urlDate
     }
 }
 
@@ -27,10 +28,10 @@ app.get("/", function (request, response) {
 
 app.get("/*", function (request, response) {
   if (isNaN(request.params[0])) {
-    try {paramDate = Date.parse(request.params[0])}
+    try {paramDate = new Date(request.params[0])}
     catch (e) {throw (e)}
   } else {
-    try {paramDate = new Date(request.params[0])}
+    try {paramDate = new Date(parseInt(request.params[0])*1000)}
     catch (e) {throw (e)}
   }
   if (paramDate) {
